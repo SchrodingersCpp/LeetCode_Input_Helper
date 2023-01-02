@@ -55,11 +55,13 @@ TreeNode<T>* BuildTree(
     const std::vector<std::size_t>& vec_lch_idx, const std::size_t curr_idx=0) {
   TreeNode<T>* root{ new TreeNode<T>(vec_elems[curr_idx]) };
   std::size_t idx_ch{ vec_lch_idx[curr_idx] };
-  if (vec_valid[idx_ch]) {  // Left child.
-    root->left = BuildTree<T>(vec_elems, vec_valid, vec_lch_idx, idx_ch);
-  }
-  if (vec_valid[++idx_ch]) {  // Right child.
-    root->right = BuildTree<T>(vec_elems, vec_valid, vec_lch_idx, idx_ch);
+  if (idx_ch) {
+    if (vec_valid[idx_ch]) {  // Left child.
+      root->left = BuildTree<T>(vec_elems, vec_valid, vec_lch_idx, idx_ch);
+    }
+    if (vec_valid[++idx_ch]) {  // Right child.
+      root->right = BuildTree<T>(vec_elems, vec_valid, vec_lch_idx, idx_ch);
+    }
   }
   return root;
 }
