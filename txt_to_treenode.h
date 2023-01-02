@@ -69,7 +69,8 @@ template <typename T>
 TreeNode<T>* Txt2TreeNode(const std::string& txt_list) {
   std::vector<std::string> txt_vec{ Txt2VecStr(txt_list) };
   auto [vec_elems, vec_valid] = VecValues<T>(txt_vec);
-  std::vector<std::size_t> vec_lch_idx{ FindLeftChildIndex(vec_elems, vec_valid) };
+  std::vector<std::size_t> vec_lch_idx{
+      FindLeftChildIndex(vec_elems, vec_valid) };
   TreeNode<T>* root{ BuildTree<T>(vec_elems, vec_valid, vec_lch_idx) };
   return root;
 }
