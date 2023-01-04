@@ -23,7 +23,7 @@ std::string Number2String(const T num, const int prec=10) {
 }
 
 // Centers a string.
-void Center_Str(std::string& str, const std::size_t width) {
+void CenterStr(std::string& str, const std::size_t width) {
   std::size_t str_len{ str.size() };
   if (str_len < width) {
     std::string centered(width, ' ');
