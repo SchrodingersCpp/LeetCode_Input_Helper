@@ -10,6 +10,7 @@
 // Converts a number to string.
 template <typename T>
 std::string Number2String(const T num, const int prec=10) {
+  if (num == 0) { return std::string(1, '0'); }
   std::ostringstream oss_num;
   oss_num << std::fixed << std::setprecision(prec) << num;
   std::string str_num{ oss_num.str() };
