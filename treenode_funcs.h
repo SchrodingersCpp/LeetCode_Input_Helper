@@ -100,11 +100,37 @@ void GrowInitBranches(std::vector<std::vector<std::string>>& vec_lvl) {
 std::vector<std::string> FormatTreeNodeLvls(
     const std::vector<std::vector<std::string>>& vec_lvl,
     const std::size_t min_dist=1) {
-  std::vector<std::string> vec_fmt_lvl(vec_lvl.size());
-  std::size_t dist_btw_elems{ min_dist };
-  std::size_t dist_to_l_elem{};
-  std::size_t n_branch{};
-  
+  const char brch_char{ '_' };  // Branch char.
+  const char space_char{ ' ' };  // Spacing char.
+  const std::size_t n_lvls{ vec_lvl.size() };
+  const std::size_t elem_len{ vec_lvl[0][0].size() };
+  std::vector<std::string> vec_fmt_lvl(n_lvls);  // Formatted lines.
+  std::vector<std::size_t> pair_width(n_lvls);  // Width of a pair of elems.
+  std::vector<std::size_t> dist_btw_elems(n_lvls);  // Spacing btw neighbors.
+  std::vector<std::size_t> dist_to_l_elem(n_lvls);  // Spacing to first elem.
+  std::vector<std::size_t> n_branch_len(n_lvls);  // Length of an elem branch.
+  pair_width[n_lvls-1] = elem_len;
+  dist_btw_elems[n_lvls-1] = min_dist;
+  dist_to_l_elem[n_lvls-1] = 0;
+  n_branch_len[n_lvls-1] = 0;
+  for (std::size_t i{ n_lvls - 2 }; i <= n_lvls; --i) {
+    pair_width[i] = 2 * pair_width[i+1] + min_dist;
+    dist_btw_elems[i] = pair_width[i] - elem_len + min_dist;
+    dist_to_l_elem[i] = (pair_width[i] - elem_len) / 2;
+    n_branch_len[i] = dist_to_l_elem[i] - (dist_to_l_elem[i+1] + elem_len / 2);
+  }
+  for (std::size_t i_lvl{}; i_lvl < n_lvls; ++i_lvl) {
+    std::string& fmt_lvl{ vec_fmt_lvl[i_lvl] };
+    std::size_t n_left_spaces{ dist_to_l_elem[i_lvl] - n_branch_len[i_lvl] };
+    const std::string branch(n_branch_len[i_lvl], brch_char);
+    fmt_lvl = std::string(n_left_spaces, space_char) + branch;
+    const std::string inner_spacing(
+        dist_btw_elems[i_lvl] - 2 * n_branch_len[i_lvl], space_char);
+    for (std::size_t i_elem{}; i_elem < (vec_lvl[i_lvl].size() - 1); ++i_elem) {
+      fmt_lvl += vec_lvl[i_lvl][i_elem] + branch + inner_spacing + branch;
+    }
+    fmt_lvl += vec_lvl[i_lvl][vec_lvl[i_lvl].size()-1] + branch;
+  }
   return vec_fmt_lvl;
 }
 
@@ -115,11 +141,8 @@ void PrintTreeNode(const TreeNode<T>* root) {
   std::vector<std::vector<std::string>> vec_lvl{ LevelValues(root, max_depth) };
   GrowInitBranches(vec_lvl);
   std::vector<std::string> vec_fmt_lvl{ FormatTreeNodeLvls(vec_lvl) };
-  for (const std::vector<std::string>& lvl_row : vec_lvl) {
-    for (const std::string& str_val : lvl_row) {
-      std::cout << '|' << str_val << '|' << ' ';
-    }
-    std::cout << '\n';
+  for (std::string& fmt_lvl : vec_fmt_lvl) {
+    std::cout << fmt_lvl << '\n';
   }
 }
 
