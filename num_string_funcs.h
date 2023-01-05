@@ -36,4 +36,11 @@ void CenterStr(std::string& str, const std::size_t width) {
   }
 }
 
+// Checks if a centered string value is empty.
+// Since the value is centered, it's enough to check only 2 mid chars.
+bool IsCenteredStrEmpty(const std::string& str) {
+  const std::size_t idx_mid{ str.size() / 2 };
+  return (str[idx_mid] == ' ') && (str[str.size() - 1 - idx_mid] == ' ');
+}
+
 #endif  // NUM_STRING_FUNCS_H
