@@ -20,7 +20,8 @@ void PopulateVectorTree(
   std::string str_val{ Number2String(root->val) };
   // Index at level coords.
   std::size_t lvl_curr_idx{
-      curr_idx - static_cast<std::size_t>(std::pow(2.0, curr_lvl - 1) * 2 - 1) };
+      curr_idx - static_cast<std::size_t>(
+          std::pow(2.0, curr_lvl - 1) * 2 - 1) };
   vec_lvl[curr_lvl][lvl_curr_idx] = str_val;
   ++curr_lvl;  // Children are on the next level.
   curr_idx = (curr_idx + 1) * 2 - 1;  // Left child index.
