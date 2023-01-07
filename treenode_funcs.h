@@ -110,10 +110,10 @@ std::vector<std::string> FormatTreeNodeLvls(
   std::vector<std::size_t> dist_btw_elems(n_lvls);  // Spacing btw neighbors.
   std::vector<std::size_t> dist_to_l_elem(n_lvls);  // Spacing to first elem.
   std::vector<std::size_t> n_branch_len(n_lvls);  // Length of an elem branch.
-  pair_width[n_lvls-1] = elem_len;
-  dist_btw_elems[n_lvls-1] = min_dist;
-  dist_to_l_elem[n_lvls-1] = 0;
-  n_branch_len[n_lvls-1] = 0;
+  pair_width.back() = elem_len;
+  dist_btw_elems.back() = min_dist;
+  dist_to_l_elem.back() = 0;
+  n_branch_len.back() = 0;
   for (std::size_t i{ n_lvls - 2 }; i <= n_lvls; --i) {
     pair_width[i] = 2 * pair_width[i+1] + min_dist;
     dist_btw_elems[i] = pair_width[i] - elem_len + min_dist;
@@ -130,7 +130,7 @@ std::vector<std::string> FormatTreeNodeLvls(
     for (std::size_t i_elem{}; i_elem < (vec_lvl[i_lvl].size() - 1); ++i_elem) {
       fmt_lvl += vec_lvl[i_lvl][i_elem] + branch + inner_spacing + branch;
     }
-    fmt_lvl += vec_lvl[i_lvl][vec_lvl[i_lvl].size()-1] + branch;
+    fmt_lvl += vec_lvl[i_lvl].back() + branch;
   }
   return vec_fmt_lvl;
 }
