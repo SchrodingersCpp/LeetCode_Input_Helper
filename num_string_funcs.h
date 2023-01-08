@@ -7,6 +7,13 @@
 #include <sstream>
 #include <string>
 
+// Centers a string.
+void CenterStr(std::string& str, const std::size_t width);
+
+// Checks if a centered string value is empty.
+// Since the value is centered, it's enough to check only 2 mid chars.
+bool IsCenteredStrEmpty(const std::string& str);
+
 // Converts a number to string.
 template <typename T>
 std::string Number2String(const T num, const int prec=10) {
@@ -23,24 +30,6 @@ std::string Number2String(const T num, const int prec=10) {
   }
   str_num.resize(ptr - str_num.data() + 1);
   return str_num;
-}
-
-// Centers a string.
-void CenterStr(std::string& str, const std::size_t width) {
-  std::size_t str_len{ str.size() };
-  if (str_len < width) {
-    std::string centered(width, ' ');
-    std::size_t n_left_spaces{ (width - str_len) / 2 };
-    centered.replace(n_left_spaces, str_len, str);
-    str = centered;
-  }
-}
-
-// Checks if a centered string value is empty.
-// Since the value is centered, it's enough to check only 2 mid chars.
-bool IsCenteredStrEmpty(const std::string& str) {
-  const std::size_t idx_mid{ str.size() / 2 };
-  return (str[idx_mid] == ' ') && (str[str.size() - 1 - idx_mid] == ' ');
 }
 
 #endif  // NUM_STRING_FUNCS_H
