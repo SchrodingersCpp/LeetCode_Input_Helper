@@ -168,4 +168,13 @@ void PrintTreeNode(const TreeNode<T>* root) {
   }
 }
 
+template <typename T>
+void DeleteTreeNode(TreeNode<T>* root) {
+  if (root->left) { DeleteTreeNode(root->left); }
+  if (root->right) { DeleteTreeNode(root->right); }
+  root->left = nullptr;
+  root->right = nullptr;
+  delete root;
+}
+
 #endif  // TREENODE_FUNCS_H
