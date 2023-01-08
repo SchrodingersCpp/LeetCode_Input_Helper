@@ -88,10 +88,11 @@ std::size_t FindTreeNodeMaxDepth(
 
 // Replaces spaces with branch chars.
 void GrowInitBranches(std::vector<std::vector<std::string>>& vec_lvl) {
+  const char brch_char{ '_' };  // Branch char.
   for (std::size_t i_lvl{}; i_lvl < (vec_lvl.size() - 1); ++i_lvl) {
     for (std::string& str_val : vec_lvl[i_lvl]) {
       if (!IsCenteredStrEmpty(str_val)) {
-        std::replace(str_val.begin(), str_val.end(), ' ', '_');
+        std::replace(str_val.begin(), str_val.end(), ' ', brch_char);
       }
     }
   }
