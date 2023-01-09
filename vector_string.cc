@@ -10,7 +10,6 @@ std::size_t CountElements(
   return std::count(txt_list.begin(), txt_list.end(), delim) + 1;
 }
 
-// Converts a text list to a text vector.
 std::vector<std::string> Txt2VecStr(
     const std::string& txt_list, const char delim/*=','*/) {
   std::size_t n_elems{ CountElements(txt_list) };
