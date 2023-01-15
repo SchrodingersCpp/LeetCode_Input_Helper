@@ -13,7 +13,7 @@
 
 std::size_t CountRows(
     const std::string& txt_mtx, const char row_end/*=']'*/) {
-  const std::size_t n_rows{};
+  std::size_t n_rows{};
   for (std::size_t i{ 1 }; i < (txt_mtx.size() - 1); ++i) {
     if (txt_mtx[i] == row_end) { ++n_rows; }
   }
