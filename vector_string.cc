@@ -12,7 +12,7 @@ std::size_t CountElements(
 
 std::vector<std::string> Txt2VecStr(
     const std::string& txt_list, const char delim/*=','*/) {
-  std::size_t n_elems{ CountElements(txt_list) };
+  const std::size_t n_elems{ CountElements(txt_list, delim) };
   std::vector<std::string> txt_vec(n_elems);
   std::size_t idx_vec{};
   // First index and length of an element in the text list.
