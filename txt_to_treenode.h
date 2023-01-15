@@ -15,7 +15,7 @@
 template <typename T>
 std::tuple<std::vector<T>, std::vector<bool>> VecValues(
     const std::vector<std::string>& txt_vec,
-    const std::string null_str=std::string("null")) {
+    const std::string& null_str=std::string("null")) {
   std::vector<T> vec_elems(txt_vec.size());  // Values.
   std::vector<bool> vec_valid(txt_vec.size(), true);  // Is element valid?
   T null_elem{ 0 };  // A substitute value for nullptr.
@@ -34,7 +34,7 @@ std::tuple<std::vector<T>, std::vector<bool>> VecValues(
 template <typename T>
 std::vector<std::size_t> FindLeftChildIndex(
     const std::vector<T>& vec_elems, const std::vector<bool>& vec_valid) {
-  std::size_t n_elems{ vec_elems.size() };
+  const std::size_t n_elems{ vec_elems.size() };
   std::vector<std::size_t> vec_lch_idx(n_elems);
   std::size_t idx_lch{ 1 };
   for (std::size_t i{}; i < n_elems; ++i) {
@@ -68,10 +68,12 @@ TreeNode<T>* BuildTree(
 
 // Converts a text TreeNode input to a TreeNode object.
 template <typename T>
-TreeNode<T>* Txt2TreeNode(const std::string& txt_list) {
-  std::vector<std::string> txt_vec{ Txt2VecStr(txt_list) };
-  auto [vec_elems, vec_valid] = VecValues<T>(txt_vec);
-  std::vector<std::size_t> vec_lch_idx{
+TreeNode<T>* Txt2TreeNode(
+    const std::string& txt_list, const char delim=',',
+    const std::string& null_str=std::string("null")) {
+  const std::vector<std::string> txt_vec{ Txt2VecStr(txt_list, delim) };
+  auto [vec_elems, vec_valid] = VecValues<T>(txt_vec, null_str);
+  const std::vector<std::size_t> vec_lch_idx{
       FindLeftChildIndex(vec_elems, vec_valid) };
   TreeNode<T>* root{ BuildTree<T>(vec_elems, vec_valid, vec_lch_idx) };
   return root;
