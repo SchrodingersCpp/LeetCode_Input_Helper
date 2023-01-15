@@ -39,9 +39,9 @@ std::vector<std::string> FormatTreeNodeLvls(
 template <typename T>
 void PopulateVectorTree(
     const TreeNode<T>* root,
-    std::vector<std::vector<std::string>>& vec_lvl,
+    std::vector<std::vector<std::string>>& vec_lvl, const int prec=10,
     std::size_t curr_lvl=0, std::size_t curr_idx=0) {
-  std::string str_val{ Number2String(root->val) };
+  const std::string str_val{ Number2String(root->val, prec) };
   // Index at level coords.
   std::size_t lvl_curr_idx{
       curr_idx - static_cast<std::size_t>(
@@ -50,26 +50,26 @@ void PopulateVectorTree(
   ++curr_lvl;  // Children are on the next level.
   curr_idx = (curr_idx + 1) * 2 - 1;  // Left child index.
   if (root->left) {
-    PopulateVectorTree(root->left, vec_lvl, curr_lvl, curr_idx);
+    PopulateVectorTree(root->left, vec_lvl, prec, curr_lvl, curr_idx);
   }
   ++curr_idx;  // Right child index.
   if (root->right) {
-    PopulateVectorTree(root->right, vec_lvl, curr_lvl, curr_idx);
+    PopulateVectorTree(root->right, vec_lvl, prec, curr_lvl, curr_idx);
   }
 }
 
 // Fills a vector containing each levels' formatted string values.
 template <typename T>
 std::vector<std::vector<std::string>> LevelValues(
-    const TreeNode<T>* root, const std::size_t max_depth) {
+    const TreeNode<T>* root, const std::size_t max_depth, const int prec=10) {
   std::vector<std::vector<std::string>> vec_lvl(max_depth);
   for (std::size_t i{}; i < max_depth; ++i) {
     // Number of elements on current level.
     std::size_t n_lvl_elems{ static_cast<std::size_t>(std::pow(2.0, i)) };
     vec_lvl[i] = std::vector<std::string>(n_lvl_elems);
   }
-  PopulateVectorTree(root, vec_lvl);
-  std::size_t width{ LongestStrVal(vec_lvl) };
+  PopulateVectorTree(root, vec_lvl, prec);
+  const std::size_t width{ LongestStrVal(vec_lvl) };
   FormatTreeNodeStrVals(vec_lvl, width);
   return vec_lvl;
 }
@@ -90,12 +90,14 @@ std::size_t FindTreeNodeMaxDepth(
 
 // Prints TreeNode.
 template <typename T>
-void PrintTreeNode(const TreeNode<T>* root) {
-  std::size_t max_depth{ FindTreeNodeMaxDepth(root) };
-  std::vector<std::vector<std::string>> vec_lvl{ LevelValues(root, max_depth) };
+void PrintTreeNode(
+    const TreeNode<T>* root, const std::size_t min_dist=1, const int prec=10) {
+  const std::size_t max_depth{ FindTreeNodeMaxDepth(root) };
+  std::vector<std::vector<std::string>> vec_lvl{
+      LevelValues(root, max_depth, prec) };
   GrowInitBranches(vec_lvl);
-  std::vector<std::string> vec_fmt_lvl{ FormatTreeNodeLvls(vec_lvl) };
-  for (std::string& fmt_lvl : vec_fmt_lvl) {
+  const std::vector<std::string> vec_fmt_lvl{ FormatTreeNodeLvls(vec_lvl, min_dist) };
+  for (const std::string& fmt_lvl : vec_fmt_lvl) {
     std::cout << fmt_lvl << '\n';
   }
 }
