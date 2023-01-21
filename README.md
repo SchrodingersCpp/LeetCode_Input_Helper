@@ -6,7 +6,7 @@ A set of tools to convert LeetCode text input data to a required type.
 
 *Input:* A text list containing numbers and `null`s.
 
-> <ins>Example input:</ins> `[1,2,3,null,4,null,5,6]`.
+> <ins>Example input:</ins> `"[1,2,3,null,4,null,5,6]"`.
 
 *Output:* A `TreeNode` structure.
 
@@ -14,6 +14,6 @@ A set of tools to convert LeetCode text input data to a required type.
 
 *Input:* A text list of text lists containing numbers.
 
-> <ins>Example input:</ins> `[[1,2,3],[4,5],[6]]`.
+> <ins>Example input:</ins> `"[[1,2,3],[4,5],[6]]"`.
 
 *Output:* A `vector` of `vector`s containing numbers.
