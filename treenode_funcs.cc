@@ -65,7 +65,6 @@ std::vector<std::string> FormatTreeNodeLvls(
   const char brch_char{ '_' };  // Branch char.
   const char space_char{ ' ' };  // Spacing char.
   const std::size_t n_lvls{ vec_lvl.size() };
-  const std::size_t elem_len{ vec_lvl[0][0].size() };
   std::vector<std::string> vec_fmt_lvl(n_lvls);  // Formatted lines.
   std::vector<std::size_t> dist_to_l_elem(n_lvls);  // Spacing to first elem.
   std::vector<std::size_t> dist_btw_elems(n_lvls);  // Spacing btw neighbors.
