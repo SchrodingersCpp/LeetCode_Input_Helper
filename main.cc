@@ -1,5 +1,6 @@
 #include <string>
 
+#include "matrix_funcs.h"
 #include "treenode_funcs.h"
 #include "treenode.h"
 #include "txt_to_treenode.h"
@@ -17,6 +18,7 @@ void VectorVectorExample() {
   using T = int;
   const std::string txt_mtx{ "[[1,1,0],[0,1,0],[0,1,0]]" };
   std::vector<std::vector<T>> vecvec{ Txt2VecVec<T>(txt_mtx) };
+  PrintVecVec(vecvec);
 }
 
 int main() {
