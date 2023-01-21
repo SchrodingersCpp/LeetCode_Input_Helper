@@ -6,11 +6,6 @@
 
 #include "vector_string.h"
 
-
-#include <iostream>
-
-
-
 std::size_t CountRows(
     const std::string& txt_mtx, const char row_end/*=']'*/) {
   std::size_t n_rows{};
@@ -42,7 +37,5 @@ std::vector<std::vector<std::string>> Txt2VecVecStr(
   const std::size_t n_rows{ CountRows(txt_mtx, row_end) };
   std::vector<std::vector<std::string>> txt_vecvec(n_rows);
   FillRows(txt_vecvec, txt_mtx, row_end, col_delim);
-  
-  std::cout << n_rows << '\n';
   return txt_vecvec;
 }
