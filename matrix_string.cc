@@ -31,7 +31,7 @@ void FillRows(
     if (txt_mtx[i] == row_end) {
       len = i - idx_beg + 1;
       txt_vecvec[n_row++] = Txt2VecStr(txt_mtx.substr(idx_beg, len), col_delim);
-      idx_beg = i + 1;
+      idx_beg = i + 2;
     }
   }
 }
