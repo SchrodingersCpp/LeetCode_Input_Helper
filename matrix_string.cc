@@ -24,7 +24,6 @@ void FillRows(
     std::vector<std::vector<std::string>>& txt_vecvec,
     const std::string& txt_mtx,
     const char row_end/*=']'*/, const char col_delim/*=','*/) {
-  const std::size_t n_rows{ txt_vecvec.size() };
   std::size_t idx_beg{ 1 };
   std::size_t n_row{};
   std::size_t len{};
